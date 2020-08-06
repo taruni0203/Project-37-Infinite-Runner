@@ -78,23 +78,23 @@ function setup() {
 function draw() {
   background(180);
 
-  gameOver.x = camera.x;
-  resetButton.x = camera.x;
+  gameOver.x = camera.position.x;
+  resetButton.x = camera.position.x;
 
   trex.collide(invisibleGround);
   if(gameState === PLAY){
-    camera.x = camera.x + (6 + 3*score/500);
-    trex.x = camera.x - 500;
+    camera.position.x = camera.position.x + (6 + 3*score/500);
+    trex.x = camera.position.x - 500;
     trex.setCollider("rectangle",100,0,1000,950);
     trex.scale = 0.07;
 
-    if(ground.x<camera.x-600){
-      ground.x = camera.x-50/2
+    if(ground.x<camera.position.x-600){
+      ground.x = camera.position.x-50/2
     }
-    invisibleGround.x = camera.x;
+    invisibleGround.x = camera.position.x;
 
     score = score + Math.round(getFrameRate()/60);
-     if(keyDown("space")) {
+     if(keyWentDown("space")) {
       trex.velocityY = -10;
     }
 
@@ -113,7 +113,7 @@ function draw() {
     gameOver.visible = true;
     resetButton.visible = true;
     
-    //camera.x = camera.x;
+    //camera.position.x = camera.position.x;
     ground.velocityX = 0;
     trex.changeAnimation("collided",trex_collided);
     trex.scale = 0.14;
@@ -126,7 +126,7 @@ function draw() {
     restart();
   }
     
-  text("Score: "+ score, camera.x + 150,50);
+  text("Score: "+ score, camera.position.x + 150,50);
   
   drawSprites();
 }
@@ -134,7 +134,7 @@ function draw() {
 function spawnClouds() {
 
   if (frameCount % 60 === 0) {
-    var cloud = createSprite(camera.x + 600,220,40,10);
+    var cloud = createSprite(camera.position.x + 600,220,40,10);
     cloud.y = Math.round(random(80,120));
     cloud.addImage(cloudImage);
     cloud.scale = 0.6;
@@ -150,7 +150,7 @@ function spawnClouds() {
 
 function spawnObstacles() {
   if(frameCount %60 === 0) {
-    var obstacle = createSprite(camera.x + 600,365,10,40);
+    var obstacle = createSprite(camera.position.x + 600,365,10,40);
     //obstacle.velocityX = -4;
 //obstacle.debug =true;
     var rand = Math.round(random(1,6));
